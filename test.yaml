@@ -1,0 +1,14 @@
+repo_directory: "development/"
+github:
+  - name: diff-so-fancy
+    repo: so-fancy/diff-so-fancy
+    in_repo_paths: [""]
+  - name: zsh-autocomplete
+    repo: dcheno/zsh-autocomplete
+    source_directives: ["zsh-autocomplete.plugin.zsh"] 
+  - name: zsh-syntax-highlighting
+    repo: zsh-users/zsh-syntax-highlighting
+    source_directives: ["zsh-syntax-highlighting.zsh"] 
+  - name: zsh-autosuggestions
+    repo: zsh-users/zsh-autosuggestions
+    source_directives: ["zsh-autosuggestions.zsh"] 
