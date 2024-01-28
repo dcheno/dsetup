@@ -1,21 +1,25 @@
 config:
   repos_directory: "$HOME/development"
-  env_file: ".customenv"
-  rc_file: ".customrc"
+  env_file: ".dsetupenv"
+  rc_file: ".dsetuprc"
 github:
   - command: diff-so-fancy
     repo: so-fancy/diff-so-fancy
     .env:
       relative_paths: [""]
+    groups: ["default"]
   - command: zsh-autocomplete
     repo: dcheno/zsh-autocomplete
     .rc:
       relative_source_directives: ["zsh-autocomplete.plugin.zsh"] 
+    groups: ["default"]
   - command: zsh-syntax-highlighting
     repo: zsh-users/zsh-syntax-highlighting
     .rc:
       relative_source_directives: ["zsh-syntax-highlighting.zsh"] 
+    groups: ["default"]
   - command: zsh-autosuggestions
     repo: zsh-users/zsh-autosuggestions
     .rc:
       relative_source_directives: ["zsh-autosuggestions.zsh"] 
+    groups: ["work"]
