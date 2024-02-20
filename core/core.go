@@ -19,10 +19,13 @@ type Config struct {
 type Dependency interface {
 	Name() string
 	EnsureInstallation(config Config)
+	Exists() bool
+	HasAtLeastOneGroup(checkGroups GroupList) bool
+}
+
+type FileWriter interface {
 	WriteFiles(config Config, relativeBase string)
 	RelativeBase(config Config) string
-	CommandExists() bool
-	HasAtLeastOneGroup(checkGroups GroupList) bool
 }
 
 type Command struct {
@@ -64,7 +67,7 @@ func (gl *GroupList) Set(group string) error {
 	return nil
 }
 
-func (dependencyInfo DependencyInfo) CommandExists() bool {
+func (dependencyInfo DependencyInfo) Exists() bool {
 	return utils.CommandExists(dependencyInfo.Command)
 }
 
@@ -73,8 +76,16 @@ func (dependencyInfo DependencyInfo) Name() string {
 }
 
 func (dependencyInfo DependencyInfo) HasAtLeastOneGroup(checkGroups GroupList) bool {
+	return HasAtLeastOneGroup(dependencyInfo.Name(), dependencyInfo.Groups, checkGroups)
+}
+
+func HasAtLeastOneGroup(name string, dependencyGroups GroupList, checkGroups GroupList) bool {
+	if len(dependencyGroups) == 0 {
+		fmt.Printf("⚠️ '%s' is not attached to any groups and will not be installed! ⚠️⚠\n", name)
+	}
+
 	for _, includedGroup := range checkGroups {
-		for _, dependencyGroup := range dependencyInfo.Groups {
+		for _, dependencyGroup := range dependencyGroups {
 			if dependencyGroup == includedGroup {
 				return true
 			}
